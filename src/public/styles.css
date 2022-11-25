@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap');
+body{
+    background-color: #ffb40c;
+    font-family: 'Mulish', sans-serif;
+}
+
+.containerNavSup{
+    padding-left: 3vw;
+    display:flex;
+    align-items: center;
+    justify-content: left;
+
+}
+.divFormContainer{
+    padding-top:2vh;
+    padding-left:5vw;
+    padding-right:5vw;
+}
+.containerNavInf{
+    padding-left: 3vw;
+    justify-content: center;
+}
+.navInfText{
+    font-size: small;
+}
+.inputDescription{
+    height: 20vh;
+}
+/* Personalización pantalla de mas de 600px de ancho */
+@media only screen and (min-width: 600px) {
+    .divFormContainer {
+        display:flex;
+        justify-content: center;
+    }
+    .formAddProduct{
+        width: 65vw;
+    }
+  }
+
+.productsListContainer{
+    display:flex;
+    height: 10vh;
+    margin: 2vh;
+}
+
+.productsListContainer img{
+    object-fit: contain;
+    height: 100%;
+    border: 2px solid #732178;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.separateLine{
+    background-color: #732178;
+    height: 1px;
+    width: 95vw;
+}
+.separateLineContainer{
+    display:flex;
+    justify-content: center;
+}
+.detailsListContainer *{
+    margin-left:10vw;
+    color:#732178;
+    font-size: 1.3em;
+}
+
+.nothingListContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nothingListContainer p{
+    font-weight: 700;
+    color:#732178;
+    font-size: 1.3em;
+}
+
+.nothingListContainer img{
+    padding-top: 10vh;
+    height:35vh;
+    width: 35vh;
+}
+
+/* FORM WS BLOCK */
+
+#divProductListWSContainer{
+    display:flex;
+    height: 5vh;
+    margin: 2vh;
+    border: #732178 1px solid;
+    border-radius: 9px 0 0 9px;
+}
+.productListBlockWSImage{
+    height:5vh;
+    width: 5vh;
+    object-fit: contain;
+    height: 100%;
+    border-right: 1px solid #732178;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.productListBlockWSText{
+    display:flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding:2vh;
+    padding-top: 3vh;
+    color:#ffb40c;
+    background-color:#732178;
+    font-size: 1em;
+}
+.productListTitleWS{
+    margin-left: 2vh;
+    margin-top:2vh;
+    font-size: 1.3em;
+    color:#732178;
+}
+
+@media only screen and (min-width: 600px) {
+    #divProductListWSContainer,.productListTitleWS{
+        margin-left: 17.5vw;
+        margin-right: 17.5vw;
+    }
+  }
+
+  /* CHAT WS STYLE */
+
+  .divChatContainer{
+    position: fixed;
+    bottom: 45px;
+    right: 0;
+    width: 100%;
+  }
+  .chatMessagesContainer{
+    height: 20vh;
+    border: #732178 1px solid;
+    border-radius: 10px;
+    margin-bottom: 1vh;
+    overflow: scroll;
+  }
+  .inputMail,.inputMessage{
+    margin-bottom: 1vh;
+    border-color: #732178;
+  }
+  .divChatMessagesBlockContainer{
+    display:flex;
+    max-width: 100%;
+    justify-content: space-between;
+    margin-left:2vw;
+    margin-right:2vw;
+  }
+  .chatDate,.chatUser{
+    font-weight: 600;
+    font-size: 0.8em;
+    color:#732178;
+    padding:0;
+    margin:0;
+  }
+  .chatText{
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-left:2vw;
+    margin-right:2vw;
+    margin-bottom:0;
+  }
