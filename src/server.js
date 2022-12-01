@@ -2,7 +2,6 @@
 const {Contenedor} = require("./classes/Contenedor")
 const {Chat} = require("./classes/Chat")
 const {Cart} = require("./classes/Cart")
-const {Admin} = require("./classes/Admin")
 
 /* IMPORTACIÓN SERVIDORES */
 const express = require("express");
@@ -62,7 +61,7 @@ io.on("connection",(socket)=>{
 /* RUTAS APLICACIÓN CON RENDERIZADO DEL MOTOR DE PLANTILLAS */
 
 /* PLANTILLA FORMULARIO */
-app.get("/",(_req,res)=>{
+app.get("/",(req,res)=>{
     res.render("form")
 })
 
@@ -82,7 +81,7 @@ app.get("/productos",async (req,res)=>{
 /* RUTAS DE LA API DEL ROUTER DE CARRITO  */
 
 /* POST() NUEVO PRODUCTO */
-cartRouter.post("/",async (_req,res)=>{
+cartRouter.post("/",async (req,res)=>{
     await cart.createCart();
     res.send({success:`Cart labeled with id: ${Cart.id} added.`})
 })
@@ -101,7 +100,7 @@ cartRouter.delete("/:id",async (req,res)=>{
 
 cartRouter.get("/:id/productos",async(req,res)=>{
     let id = parseInt(req.params.id);
-    let cartSelectedArray = cart.getById(id);
+    let cartSelectedArray = await cart.getById(id);
     let cartSelectedObject = cartSelectedArray[0]
 
     if (cartSelectedArray.length != 0){
@@ -119,14 +118,8 @@ cartRouter.post("/:id/productos", async(req,res)=>{
     let cartSelectedProductsArray = cartSelectedObj.products
 
     let idProduct = parseInt(req.body.id);
-    console.log(idProduct)
     let productSelectedArray = products.getById(idProduct)
     let productSelectedObj = productSelectedArray[0]
-
-    console.log(cartSelectedArray.length != 0)
-    console.log(productSelectedArray.length != 0)
-    console.log(cartId == true)
-    console.log(idProduct == true)
 
     if (cartSelectedArray.length != 0 && productSelectedArray.length != 0){
             cartSelectedProductsArray.push(productSelectedObj)
@@ -150,13 +143,9 @@ cartRouter.delete("/:id/productos/:id_prod", async(req,res)=>{
     }else if(cartProductsArray.length == 0){
         res.send({error:`Product labeled with id ${productId} is not in cart ${cartId}.`})
     }else{
-        cartProductsArray = products.deleteProductInCart(productId);
-        res.send({success:`Product labeled with id  ${id} deleted.`});
+        Cart.CartList[cartId-1].products = cart.deleteProductInCart(productId,cartProductsArray);
+        res.send({success:`Product labeled with id  ${productId} in cart ${cartId} deleted.`});
     }
-
-
-    const cartProductsArrayIdDeleted = cart.deleteProductInCart(cartId,productId)
-
 })
 
 /* RUTAS DE LA API DEL ROUTER DE PRODUCTOS  */
@@ -168,11 +157,11 @@ productsRouter.get("/",(req,res)=>{
 /* GET() PRODUCTO DADO UN ID */
 productsRouter.get("/:id",(req,res)=>{
     let id = parseInt(req.params.id);
-    product = products.getById(id);
+    products = products.getById(id);
 
-    product == false ? 
+    products == false ? 
     res.send({"error": "Product does not exist"}) :
-    res.send(product);
+    res.send(products);
 })
 
 /* POST() NUEVO PRODUCTO */
@@ -208,8 +197,8 @@ productsRouter.put("/:id", async (req,res)=>{
             editProductObject.price &&
             editProductObject.thumbnail){
 
-            products.deleteById(id);
-            products.update(editProductObject,id);
+            await products.deleteById(id);
+            products.update(productObject,id);
             products.sort();
             res.send({success:`Product labeled with id ${id} updated.`});
 
